@@ -1,7 +1,7 @@
 # GitHub Copilot Global Instructions - VibeBiz
 
 ## Tech Stack Wajib (JANGAN UBAH)
-- Next.js 15 App Router (folder `app/`)
+- Next.js App Router (folder `app/`)
 - TypeScript (strict mode, no `any`)
 - Tailwind CSS + shadcn/ui (semua component harus pakai shadcn)
 - Supabase (auth, database, storage) — jangan pakai Prisma atau Drizzle untuk MVP
