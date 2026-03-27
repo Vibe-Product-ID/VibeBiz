@@ -5,6 +5,7 @@ import {
   Instagram,
   LayoutTemplate,
   Leaf,
+  MessageCircle,
   Menu,
   MessageCircleMore,
   ShieldCheck,
@@ -12,7 +13,6 @@ import {
   Sparkles,
   Store,
   Wallet,
-  WhatsApp,
 } from 'lucide-react';
 
 import { Button } from '../components/ui/button';
@@ -50,6 +50,12 @@ type TemplateItem = {
 };
 
 const navItems = ['Beranda', 'Template', 'Harga', 'Blog', 'Login'];
+const socialLinks = [
+  { name: 'Instagram VibeBiz', href: 'https://instagram.com/vibebiz.id', icon: Instagram },
+  { name: 'WhatsApp VibeBiz', href: 'https://www.whatsapp.com', icon: MessageCircle },
+];
+const batikBackdropClassName =
+  'pointer-events-none fixed inset-0 -z-10 opacity-30 [background:radial-gradient(circle_at_20%_20%,#D2B48C_0%,transparent_35%),radial-gradient(circle_at_80%_10%,#228B22_0%,transparent_30%),linear-gradient(135deg,rgba(139,69,19,0.07)_25%,transparent_25%,transparent_50%,rgba(139,69,19,0.07)_50%,rgba(139,69,19,0.07)_75%,transparent_75%,transparent)] [background-size:100%_100%,100%_100%,42px_42px]';
 
 const steps: StepItem[] = [
   {
@@ -161,7 +167,7 @@ const templates: TemplateItem[] = [
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#fffaf5] text-[#3b2a1f]">
-      <div className="pointer-events-none fixed inset-0 -z-10 opacity-30 [background:radial-gradient(circle_at_20%_20%,#D2B48C_0%,transparent_35%),radial-gradient(circle_at_80%_10%,#228B22_0%,transparent_30%),linear-gradient(135deg,rgba(139,69,19,0.07)_25%,transparent_25%,transparent_50%,rgba(139,69,19,0.07)_50%,rgba(139,69,19,0.07)_75%,transparent_75%,transparent)] [background-size:100%_100%,100%_100%,42px_42px]" />
+      <div className={batikBackdropClassName} />
 
       {/* Vibe: modern-tradisional UMKM Indonesia */}
       <header className="sticky top-0 z-50 border-b border-[#8B4513]/15 bg-[#fffaf5]/95 backdrop-blur">
@@ -189,14 +195,27 @@ export default function HomePage() {
             <Button>Coba Gratis Sekarang</Button>
           </div>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            className="md:hidden"
-            aria-label="Buka menu navigasi"
-          >
-            <Menu className="h-5 w-5" />
-          </Button>
+          <details className="relative md:hidden">
+            <summary className="list-none">
+              <Button
+                variant="ghost"
+                size="sm"
+                aria-label="Buka menu navigasi"
+                aria-expanded="false"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </summary>
+            <div className="absolute right-0 mt-2 w-44 rounded-md border border-[#8B4513]/20 bg-white p-2 shadow-lg">
+              <ul className="space-y-1 text-sm text-[#5f4a3d]">
+                {navItems.map((item) => (
+                  <li key={item} className="rounded px-2 py-1 hover:bg-[#8B4513]/10">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
         </nav>
       </header>
 
@@ -223,9 +242,14 @@ export default function HomePage() {
               </label>
               <textarea
                 id="vibe-input"
-                className="min-h-36 w-full rounded-md border border-[#8B4513]/20 bg-[#fffdf9] px-3 py-2 text-sm text-[#3b2a1f] outline-none ring-[#8B4513]/20 placeholder:text-[#8f7a6b] focus:ring-2"
+                aria-describedby="vibe-input-helper"
+                rows={5}
+                className="w-full rounded-md border border-[#8B4513]/20 bg-[#fffdf9] px-3 py-2 text-sm text-[#3b2a1f] outline-none ring-[#8B4513]/20 placeholder:text-[#8f7a6b] focus:ring-2"
                 placeholder="Buatkan aplikasi catat stok kain batik, kirim notif WA kalau stok tinggal 5, vibe tradisional Jawa sederhana"
               />
+              <p id="vibe-input-helper" className="text-xs text-[#7a6658]">
+                Contoh di atas bisa kamu ubah sesuai jenis usaha dan gaya brand-mu.
+              </p>
               <Button size="lg" className="w-full sm:w-auto">
                 Generate App Saya Sekarang
                 <ArrowRight className="h-4 w-4" />
@@ -434,12 +458,22 @@ export default function HomePage() {
           <div>
             <p className="mb-3 font-semibold">Ikuti Kami</p>
             <div className="flex items-center gap-3 text-[#8B4513]">
-              <a href="#" className="rounded-full border border-[#8B4513]/25 p-2" aria-label="Instagram VibeBiz">
-                <Instagram className="h-4 w-4" />
-              </a>
-              <a href="#" className="rounded-full border border-[#8B4513]/25 p-2" aria-label="WhatsApp VibeBiz">
-                <WhatsApp className="h-4 w-4" />
-              </a>
+              {socialLinks.map((socialLink) => {
+                const SocialIcon = socialLink.icon;
+
+                return (
+                  <a
+                    key={socialLink.name}
+                    href={socialLink.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border border-[#8B4513]/25 p-2"
+                    aria-label={socialLink.name}
+                  >
+                    <SocialIcon className="h-4 w-4" />
+                  </a>
+                );
+              })}
             </div>
             <p className="mt-4 text-xs text-[#6d584a]">© {new Date().getFullYear()} VibeBiz. Semua hak dilindungi.</p>
           </div>
