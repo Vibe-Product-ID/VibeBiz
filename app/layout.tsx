@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'No-Code App Builder khusus UMKM Indonesia',
 };
 
-// Vibe: modern-tradisional UMKM Indonesia
+// Vibe: tradisional Jawa
 export default function RootLayout({
   children,
 }: Readonly<{
